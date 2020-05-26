@@ -13,7 +13,7 @@ public class ClientSplit {
             InetAddress ia;                     //ip server
             InetSocketAddress isa;              //socket address server
             ia = InetAddress.getLocalHost();
-            isa = new InetSocketAddress(ia,64804);          //porta dest ip dest
+            isa = new InetSocketAddress(ia,54250);          //porta dest ip dest
             sToServer.connect(isa);                              //la connect richiama lei la bind
             System.out.println("porta allocata: "+sToServer.getLocalPort());
 
