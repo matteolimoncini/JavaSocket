@@ -12,15 +12,23 @@ public class ServerUdp {
             System.out.println("SERVER: indirizzo: "+sToClient.getLocalAddress()+"; porta: "+sToClient.getLocalPort());
 
             int dimbuffer=100;
-            byte[] buffer = new byte[dimbuffer];
-            DatagramPacket dp = new DatagramPacket(buffer,dimbuffer);
-            sToClient.receive(dp);
+            long time=System.currentTimeMillis();
+            long end=time+30000;
+            while(System.currentTimeMillis()<end) {
+                byte[] buffer = new byte[dimbuffer];
+                DatagramPacket dp = new DatagramPacket(buffer, dimbuffer);
+                sToClient.receive(dp);
 
-            String stringa = new String(buffer,0,dp.getLength());
-            System.out.println("ricevuto: "+stringa);
-            InetAddress ia = dp.getAddress();
-            int porta = dp.getPort();
-            System.out.println("CLIENT: Indirizzo: "+ia.getHostAddress()+"; porta: "+porta);
+                String stringa = new String(buffer, 0, dp.getLength());
+                System.out.println("ricevuto CLIENT: " + stringa);
+
+                //elaborazione stringa
+                //Thread.sleep(1000*10);
+
+                InetAddress ia = dp.getAddress();
+                int porta = dp.getPort();
+                System.out.println("CLIENT: Indirizzo: " + ia.getHostAddress() + "; porta: " + porta);
+            }
             sToClient.close();      //chiude entrambi i lati
         } catch (IOException e) {
             e.printStackTrace();
