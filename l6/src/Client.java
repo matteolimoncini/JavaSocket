@@ -16,7 +16,7 @@ public class Client {
             InetAddress inetAddress;
             InetSocketAddress inetSocketAddress;
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress,51701);
+            inetSocketAddress = new InetSocketAddress(inetAddress,65446);
             sToServer.connect(inetSocketAddress);
             System.out.println("CLIENT: porta:"+sToServer.getLocalPort());
 

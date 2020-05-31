@@ -12,7 +12,7 @@ public class ClientConcorrente {
             InetAddress inetAddress;
             InetSocketAddress inetSocketAddress;
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 51873);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 65372);
             sToServer.connect(inetSocketAddress);
             System.out.println("CLIENT: porta:" + sToServer.getLocalPort());
 

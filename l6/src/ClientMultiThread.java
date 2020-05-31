@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ClientConcorrente2 {
+public class ClientMultiThread {
     public static void main(String[] args) {
         Socket sToServer;
         sToServer = new Socket();
@@ -12,11 +12,10 @@ public class ClientConcorrente2 {
             InetAddress inetAddress;
             InetSocketAddress inetSocketAddress;
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 65532);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 49928);
             sToServer.connect(inetSocketAddress);
             System.out.println("CLIENT: porta:" + sToServer.getLocalPort());
 
-            System.out.println("inserisci testo");
             InputStreamReader tastiera = new InputStreamReader(System.in);
 
             BufferedReader br = new BufferedReader(tastiera);
@@ -25,20 +24,28 @@ public class ClientConcorrente2 {
             while (continuable) {
                 System.out.print("inserisci testo:");
                 String frase = br.readLine();
-                System.out.println("messaggio: " + frase);
+
+                if (frase.equals("")) {
+                    System.out.println("FINE INPUT");
+                    continuable = false;
+                }else {
+                    System.out.println("messaggio: " + frase);
+                }
 
                 OutputStream toSrv = sToServer.getOutputStream();
                 toSrv.write(frase.getBytes(), 0, frase.length());
-
-                if (frase.equals("0")) {
-                    continuable = false;
-                }
             }
-            //Thread.sleep(1000*10);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                sToServer.close();
+            } catch (IOException e) {
+                System.err.println("Can not close the socket");
+                e.printStackTrace();
+            }
         }
     }
 }
