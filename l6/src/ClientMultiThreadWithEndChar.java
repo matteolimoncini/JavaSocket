@@ -6,11 +6,12 @@ import java.net.UnknownHostException;
 
 public class ClientMultiThreadWithEndChar {
     private static final String END_STRING = ".";
+
     public static void main(String[] args) {
         Socket sToServer;
         sToServer = new Socket();
         try {
-            int dimbuffer=100;
+            int dimbuffer = 100;
             byte[] buffer = new byte[dimbuffer];
             int letti;
             InetAddress inetAddress;
@@ -39,20 +40,20 @@ public class ClientMultiThreadWithEndChar {
                 if (frase.equals(END_STRING)) {
                     System.out.println("FINE INPUT");
                     break;
-                }else {
+                } else {
                     System.out.println("messaggio: " + frase);
                 }
 
                 fromServer = sToServer.getInputStream();
                 letti = fromServer.read(buffer);
-                echo = new String(buffer,0,dimbuffer);
-                System.out.println("RICEVUTO ECHO: "+echo);
+                echo = new String(buffer, 0, dimbuffer);
+                System.out.println("RICEVUTO ECHO: " + echo);
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 sToServer.close();
             } catch (IOException e) {

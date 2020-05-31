@@ -7,43 +7,49 @@ import java.net.Socket;
 public class ServerIterativo {
 
     public static void main(String[] args) {
-        String endstring="ENDSTRING";
         ServerSocket serverSocket;
-        Socket toClient;
+        Socket toClient = null;
         try {
-            int dimbuffer=100;
+            int dimbuffer = 100;
             byte[] buffer = new byte[dimbuffer];
             int letti;
-            String notification="ACCETTATO";
+            String notification = "ACCETTATO";
+            OutputStream toCl;
+            InputStream fromClient;
+            String frase = "";
 
-            serverSocket= new ServerSocket(0);
-            System.out.println("SERVER: indirizzo: "+serverSocket.getInetAddress()+" porta:"+serverSocket.getLocalPort());
+            serverSocket = new ServerSocket(0);
+            System.out.println("SERVER: indirizzo: " + serverSocket.getInetAddress() + " porta:" + serverSocket.getLocalPort());
 
-            while (true){
-                toClient=serverSocket.accept();
-                System.out.println("CLIENT: indirizzo: "+toClient.getInetAddress()+" porta:"+toClient.getPort());
+            while (true) {
+                toClient = serverSocket.accept();
+                System.out.println("CLIENT: indirizzo: " + toClient.getInetAddress() + " porta:" + toClient.getPort());
 
-                OutputStream toCl = toClient.getOutputStream();
-                toCl.write(notification.getBytes(),0,notification.length());
+                toCl = toClient.getOutputStream();
+                toCl.write(notification.getBytes(), 0, notification.length());
 
-                InputStream fromClient = toClient.getInputStream();
+                fromClient = toClient.getInputStream();
                 letti = fromClient.read(buffer);
 
-                String frase = "";
-                if(letti>0) {
-                    frase = new String(buffer,0,letti);
+                if (letti > 0) {
+                    frase = new String(buffer, 0, letti);
                 }
-                if(frase.equals(endstring)){
-                    System.out.println("ENDSTRINGA");
-                    break;
-                }
-                System.out.println("Ricevuta Stringa: " +frase+ " di "+letti+" bytes");
 
-                toClient.close();
+                System.out.println("Ricevuta Stringa: " + frase + " di " + letti + " bytes");
+
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                assert toClient != null;
+                toClient.close();
+            } catch (IOException e) {
+                System.err.print("can not close the socket");
+                e.printStackTrace();
+            }
+
         }
     }
 }

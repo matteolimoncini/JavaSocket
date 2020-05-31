@@ -1,24 +1,27 @@
-import javax.xml.crypto.Data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetSocketAddress;
+import java.net.SocketException;
 
 public class ClientUdpEcho {
     private static final String END_STRING = ".";
-    private static final int DIM_BUFFER=100;
+    private static final int DIM_BUFFER = 100;
+
     public static void main(String[] args) {
         DatagramSocket sToServer;
         DatagramPacket inputDatagramPacket;
-        try{
+        try {
             sToServer = new DatagramSocket();
             String hostname = "localhost";
-            int port=10;
+            int port = 10;
             InputStreamReader tastiera = new InputStreamReader(System.in);
             BufferedReader bufferedReader = new BufferedReader(tastiera);
             System.out.println("inserisci porta:");
             port = Integer.parseInt(bufferedReader.readLine());
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(hostname,port);
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(hostname, port);
             byte[] buffer;
             String echo;
             String frase;
@@ -26,7 +29,7 @@ public class ClientUdpEcho {
             do {
                 System.out.println("inserisci frase:");
                 frase = bufferedReader.readLine();
-                if(!frase.equals(END_STRING)) {
+                if (!frase.equals(END_STRING)) {
                     DatagramPacket dp = new DatagramPacket(frase.getBytes(), frase.getBytes().length);
                     dp.setSocketAddress(inetSocketAddress);
                     sToServer.send(dp);
@@ -39,7 +42,7 @@ public class ClientUdpEcho {
                 }
             } while (!frase.equals(END_STRING));
 
-        }catch (SocketException e) {
+        } catch (SocketException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

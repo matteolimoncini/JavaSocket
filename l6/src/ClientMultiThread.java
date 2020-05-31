@@ -1,4 +1,7 @@
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -28,7 +31,7 @@ public class ClientMultiThread {
                 if (frase.equals("")) {
                     System.out.println("FINE INPUT");
                     continuable = false;
-                }else {
+                } else {
                     System.out.println("messaggio: " + frase);
                 }
 
@@ -39,7 +42,7 @@ public class ClientMultiThread {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 sToServer.close();
             } catch (IOException e) {

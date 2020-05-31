@@ -31,7 +31,7 @@ public class ClientMultiThread2 {
                 if (frase.equals("")) {
                     System.out.println("FINE INPUT");
                     continuable = false;
-                }else {
+                } else {
                     System.out.println("messaggio: " + frase);
                 }
 
@@ -42,7 +42,7 @@ public class ClientMultiThread2 {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 sToServer.close();
             } catch (IOException e) {

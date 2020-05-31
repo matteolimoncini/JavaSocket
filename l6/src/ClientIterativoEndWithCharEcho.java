@@ -22,10 +22,10 @@ public class ClientIterativoEndWithCharEcho {
         BufferedReader bufferedReader;
         try {
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 50656);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 51262);
 
             sToServer.connect(inetSocketAddress);
-            System.out.println("CLIENT: indirizzo:" + sToServer.getInetAddress()+" porta: "+sToServer.getLocalPort());
+            System.out.println("CLIENT: indirizzo:" + sToServer.getInetAddress() + " porta: " + sToServer.getLocalPort());
 
             tastiera = new InputStreamReader(System.in);
             bufferedReader = new BufferedReader(tastiera);
@@ -36,7 +36,7 @@ public class ClientIterativoEndWithCharEcho {
 
                 toServer = sToServer.getOutputStream();
                 toServer.write(frase.getBytes());
-                if(frase.equals(END_STRING)){
+                if (frase.equals(END_STRING)) {
                     break;
                 }
                 fromSrv = sToServer.getInputStream();
