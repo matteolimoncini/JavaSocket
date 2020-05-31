@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class erogaservizioEndWithChar extends Thread {
@@ -27,7 +28,13 @@ public class erogaservizioEndWithChar extends Thread {
                         System.out.println("CLIENT: "+socket.getInetAddress()+" CHIUSO");
                         return;
                     }
-                    System.out.println("RICEVUTA STRINGA: "+stampa+ " di "+letti+ " byte da "+socket.getInetAddress()+"; porta: "+socket.getPort());
+                    else{
+                        System.out.println("RICEVUTA STRINGA: "+stampa+ " di "+letti+ " byte da "+socket.getInetAddress()+"; porta: "+socket.getPort());
+
+                        OutputStream toClient = socket.getOutputStream();
+                        toClient.write(stampa.getBytes());
+                        System.out.println("INVIATO ECHO AL CLIENT");
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -4,7 +4,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class ClientMultiThreadWithEndChar {
+public class ClientMultiThreadWithEndChar2 {
     private static final String END_STRING = ".";
     public static void main(String[] args) {
         Socket sToServer;
