@@ -15,36 +15,38 @@ public class ClientMultiThreadWithEndChar {
             int letti;
             InetAddress inetAddress;
             InetSocketAddress inetSocketAddress;
+            InputStream fromServer;
+            InputStreamReader tastiera;
+            OutputStream toSrv;
+            BufferedReader br;
+            String echo;
+
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 50222);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 50351);
             sToServer.connect(inetSocketAddress);
+
             System.out.println("CLIENT: porta:" + sToServer.getLocalPort());
 
-            InputStreamReader tastiera = new InputStreamReader(System.in);
+            tastiera = new InputStreamReader(System.in);
+            br = new BufferedReader(tastiera);
 
-            BufferedReader br = new BufferedReader(tastiera);
-
-            boolean continuable = true;
-            while (continuable) {
+            while (true) {
                 System.out.print("inserisci testo:");
                 String frase = br.readLine();
+                toSrv = sToServer.getOutputStream();
+                toSrv.write(frase.getBytes(), 0, frase.length());
 
                 if (frase.equals(END_STRING)) {
                     System.out.println("FINE INPUT");
-                    continuable = false;
+                    break;
                 }else {
                     System.out.println("messaggio: " + frase);
                 }
 
-                OutputStream toSrv = sToServer.getOutputStream();
-                toSrv.write(frase.getBytes(), 0, frase.length());
-
-                if(!frase.equals(END_STRING)){
-                    InputStream fromServer = sToServer.getInputStream();
-                    letti = fromServer.read(buffer);
-                    String echo = new String(buffer,0,dimbuffer);
-                    System.out.println("RICEVUTO ECHO: "+echo);
-                }
+                fromServer = sToServer.getInputStream();
+                letti = fromServer.read(buffer);
+                echo = new String(buffer,0,dimbuffer);
+                System.out.println("RICEVUTO ECHO: "+echo);
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();

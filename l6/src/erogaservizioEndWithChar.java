@@ -25,7 +25,7 @@ public class erogaservizioEndWithChar extends Thread {
                     String stampa = new String(buffer,0,letti);
                     if(stampa.equals(END_STRING)){
                         socket.close();
-                        System.out.println("CLIENT: "+socket.getInetAddress()+" CHIUSO");
+                        System.out.println("CLIENT: "+socket.getInetAddress()+"; " +socket.getPort()+ " CHIUSO");
                         return;
                     }
                     else{
