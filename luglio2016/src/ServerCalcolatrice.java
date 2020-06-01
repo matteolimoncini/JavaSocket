@@ -41,6 +41,7 @@ public class ServerCalcolatrice {
                         buffer = new byte[DIM_BUFFER];
 
                         do {
+                            buffer = new byte[DIM_BUFFER];
                             letti = fromCl.read(buffer);
                             if (letti > 0) {
                                 operatore = new String(buffer, 0, letti);
@@ -64,6 +65,7 @@ public class ServerCalcolatrice {
                         System.out.println("inviato ack al client");
 
                         do {
+                            buffer = new byte[DIM_BUFFER];
                             letti = fromCl.read(buffer);
                             if (letti > 0) {
                                 operando1 = new String(buffer, 0, letti);
@@ -92,8 +94,10 @@ public class ServerCalcolatrice {
                         System.out.println(operando1);
                         toCl.write(vald.getBytes(),0,vald.length());
                         System.out.println("inviato ack al client");
+                        isOperandoCorretto=true;
 
                         do {
+                            buffer = new byte[DIM_BUFFER];
                             letti = fromCl.read(buffer);
                             if (letti > 0) {
                                 operando1 = new String(buffer, 0, letti);
@@ -120,6 +124,7 @@ public class ServerCalcolatrice {
                         System.out.println(operando1);
                         toCl.write(vald.getBytes(),0,vald.length());
                         System.out.println("inviato ack al client");
+                        isOperandoCorretto=true;
 
                         double risultato = 0;
                         switch (operatore) {

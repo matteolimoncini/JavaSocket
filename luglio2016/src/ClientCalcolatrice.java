@@ -24,7 +24,7 @@ public class ClientCalcolatrice {
         try {
             byte[] buffer = new byte[DIM_BUFFER];
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 43971);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 45343);
             toServer.connect(inetSocketAddress);
             System.out.println("CLIENT: indirizzo: " + toServer.getLocalAddress() + " porta: " + toServer.getPort());
 
@@ -40,6 +40,7 @@ public class ClientCalcolatrice {
             while (true) {
 
                 while (bool) {
+                    buffer = new byte[DIM_BUFFER];
                     System.out.println("inserisci operatore");
                     line = bufferedReader.readLine();
                     outputStream.write(line.getBytes(), 0, line.length());
@@ -56,6 +57,7 @@ public class ClientCalcolatrice {
                 }
 
                 while (bool1 && !close) {
+                    buffer = new byte[DIM_BUFFER];
                     System.out.println("inserisci operando1");
                     line = bufferedReader.readLine();
                     outputStream.write(line.getBytes(), 0, line.length());
@@ -72,6 +74,7 @@ public class ClientCalcolatrice {
                 }
 
                 while (bool2 && !close) {
+                    buffer = new byte[DIM_BUFFER];
                     System.out.println("inserisci operando2");
                     line = bufferedReader.readLine();
                     outputStream.write(line.getBytes(), 0, line.length());
