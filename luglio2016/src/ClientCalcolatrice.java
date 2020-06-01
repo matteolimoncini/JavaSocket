@@ -24,7 +24,7 @@ public class ClientCalcolatrice {
         try {
             byte[] buffer = new byte[DIM_BUFFER];
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 38663);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 43971);
             toServer.connect(inetSocketAddress);
             System.out.println("CLIENT: indirizzo: " + toServer.getLocalAddress() + " porta: " + toServer.getPort());
 
@@ -35,13 +35,18 @@ public class ClientCalcolatrice {
             boolean bool = true;
             boolean bool1 = true;
             boolean bool2 = true;
+            boolean close =false;
+
             while (true) {
 
                 while (bool) {
                     System.out.println("inserisci operatore");
                     line = bufferedReader.readLine();
                     outputStream.write(line.getBytes(), 0, line.length());
-                    if (line.equals(END_CLIENT)) break;
+                    if (line.equals(END_CLIENT)) {
+                        close=true;
+                        break;
+                    }
 
                     letti = inputStream.read(buffer);
                     fromServer = new String(buffer, 0, letti);
@@ -50,11 +55,14 @@ public class ClientCalcolatrice {
                     }
                 }
 
-                while (bool1) {
+                while (bool1 && !close) {
                     System.out.println("inserisci operando1");
                     line = bufferedReader.readLine();
                     outputStream.write(line.getBytes(), 0, line.length());
-                    if (line.equals(END_CLIENT)) break;
+                    if (line.equals(END_CLIENT)) {
+                        close=true;
+                        break;
+                    }
 
                     letti = inputStream.read(buffer);
                     fromServer = new String(buffer, 0, letti);
@@ -63,11 +71,14 @@ public class ClientCalcolatrice {
                     }
                 }
 
-                while (bool2) {
+                while (bool2 && !close) {
                     System.out.println("inserisci operando2");
                     line = bufferedReader.readLine();
                     outputStream.write(line.getBytes(), 0, line.length());
-                    if (line.equals(END_CLIENT)) break;
+                    if (line.equals(END_CLIENT)) {
+                        close=true;
+                        break;
+                    }
 
                     letti = inputStream.read(buffer);
                     fromServer = new String(buffer, 0, letti);
@@ -76,6 +87,10 @@ public class ClientCalcolatrice {
                     }
                 }
 
+                if(close){
+                    toServer.close();
+                    break;
+                }
                 bool=bool1=bool2=true;
                 letti = inputStream.read(buffer);
                 fromServer = new String(buffer, 0, letti);

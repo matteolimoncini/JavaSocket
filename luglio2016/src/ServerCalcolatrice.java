@@ -46,6 +46,7 @@ public class ServerCalcolatrice {
                                 operatore = new String(buffer, 0, letti);
 
                                 if (operatore.equals(END_CLIENT)){
+                                    System.out.println("ricevuto end client");
                                     throw new EndClientException();
                                 }
 
@@ -67,7 +68,10 @@ public class ServerCalcolatrice {
                             if (letti > 0) {
                                 operando1 = new String(buffer, 0, letti);
 
-                                if (operando1.equals(END_CLIENT)) throw new EndClientException();
+                                if (operando1.equals(END_CLIENT)) {
+                                    System.out.println("ricevuto end client");
+                                    throw new EndClientException();
+                                }
 
                                 try {
                                     op1 = Double.parseDouble(operando1);
@@ -93,7 +97,10 @@ public class ServerCalcolatrice {
                             letti = fromCl.read(buffer);
                             if (letti > 0) {
                                 operando1 = new String(buffer, 0, letti);
-                                if (operando1.equals(END_CLIENT)) throw new EndClientException();
+                                if (operando1.equals(END_CLIENT)) {
+                                    System.out.println("ricevuto end client");
+                                    throw new EndClientException();
+                                }
                                 try {
                                     op2 = Double.parseDouble(operando1);
                                     isOperandoCorretto = true;
