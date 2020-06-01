@@ -26,7 +26,7 @@ public class ServerCalcolatrice {
         double op1 = 0, op2 = 0;
 
         try {
-            serverSocket = new ServerSocket(0);
+            serverSocket = new ServerSocket(0,3);
             System.out.println("SERVER: indirizzo:" + serverSocket.getInetAddress() + " porta:" + serverSocket.getLocalPort());
 
             while (true) {
@@ -148,6 +148,7 @@ public class ServerCalcolatrice {
                 } catch (EndClientException endClient) {
                     try {
                         toClient.close();
+                        System.err.println("socket chiusa");
                     }catch (IOException e){
                         System.err.println("can not close the socket");
                         e.printStackTrace();
