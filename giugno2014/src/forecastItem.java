@@ -1,9 +1,9 @@
-public class record {
+public class forecastItem {
     private int feedback=0;
     private char tempo='-';
     private char id='-';
 
-    public record(char id) {
+    public forecastItem(char id) {
         this.id = id;
     }
 

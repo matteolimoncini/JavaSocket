@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -8,18 +7,14 @@ public class Server {
     private static final int DIM_BUFFER = 100;
     private static final String STATION = "STATION";
     private static final String USER = "USER";
-    protected static record[] previsioni = new record[3];
+    protected static forecastItem[] previsioni = new forecastItem[3];
     protected static final Character[] forecastAmmessi = {'s','v','c','p','n','-'};
 
     public static void main(String[] args) {
         char c='A';
-        for (record r: previsioni) {
-            r = new record(c++);
+        for (int i = 0; i < previsioni.length; i++) {
+            previsioni[i] = new forecastItem(c++);
         }
-
-        previsioni[0] = new record('A');
-        previsioni[1] = new record('B');
-        previsioni[2] = new record('C');
 
         ServerSocket serverSocket2;
         Socket toClient;
