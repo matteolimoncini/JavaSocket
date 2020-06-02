@@ -9,32 +9,34 @@ public class ClientUser {
         byte[] buffer;
         buffer = new byte[DIM_BUFFER];
         DatagramPacket dp = new DatagramPacket(buffer, DIM_BUFFER);
-        String message;
+        String message = "";
         try {
 
             DatagramSocket sToServer = new DatagramSocket();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(),57979);
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(),35212);
             System.out.println("CLIENT: indirizzo:"+sToServer.getLocalAddress()+ " porta:"+sToServer.getPort());
 
             InputStreamReader tastiera = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(tastiera);
+            while (!message.equals(".")) {
+                System.out.println("inserisci id del treno che ti interessa");
+                message = br.readLine();
+                if(message.equals(".")){
+                    break;
+                }
+                buffer = message.getBytes();
+                dp = new DatagramPacket(buffer, message.length());
+                dp.setSocketAddress(inetSocketAddress);
+                sToServer.send(dp);
+                System.out.println("inviato id treno al server");
 
-            System.out.println("inserisci id del treno che ti interessa");
-            message = br.readLine();
-
-            buffer = message.getBytes();
-            dp = new DatagramPacket(buffer,message.length());
-            dp.setSocketAddress(inetSocketAddress);
-            sToServer.send(dp);
-            System.out.println("inviato id treno al server");
-
-            System.out.println("aspetto dati dal server");
-            buffer = new byte[DIM_BUFFER];
-            dp = new DatagramPacket(buffer,DIM_BUFFER);
-            sToServer.receive(dp);
-            message = new String(buffer,0,dp.getLength());
-            System.out.println("FROMSERVER:"+message);
-
+                System.out.println("aspetto dati dal server");
+                buffer = new byte[DIM_BUFFER];
+                dp = new DatagramPacket(buffer, DIM_BUFFER);
+                sToServer.receive(dp);
+                message = new String(buffer, 0, dp.getLength());
+                System.out.println("FROMSERVER:" + message);
+            }
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (SocketException e) {
