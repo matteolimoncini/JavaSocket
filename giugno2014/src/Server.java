@@ -4,11 +4,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    private static final int DIM_BUFFER = 100;
+    protected static final int DIM_BUFFER = 100;
     private static final String STATION = "STATION";
     private static final String USER = "USER";
     protected static forecastItem[] previsioni = new forecastItem[3];
     protected static final Character[] forecastAmmessi = {'s','v','c','p','n','-'};
+    protected static final String[] ID_AMMESSI = {"A","B","C"};
 
     public static void main(String[] args) {
         char c='A';
@@ -30,20 +31,20 @@ public class Server {
 
                 inputStream = toClient.getInputStream();
                 int letti = inputStream.read(buffer);
-                String whichhost;
+                String wichhost;
                 try {
                     if (letti > 0) {
-                        whichhost = new String(buffer, 0, letti);
-                        switch (whichhost) {
+                        wichhost = new String(buffer, 0, letti);
+                        switch (wichhost) {
                             case STATION:
                                 Thread thread2 = new erogaServizio2(toClient);
                                 thread2.start();
-                                System.out.println("Thred eseguito");
+                                System.out.println("Thred2 eseguito");
                                 break;
                             case USER:
                                 Thread thread3 = new erogaServizio3(toClient);
                                 thread3.start();
-                                System.out.println("Thred eseguito");
+                                System.out.println("Thred3 eseguito");
 
                                 break;
                             default:

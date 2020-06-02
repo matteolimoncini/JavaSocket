@@ -27,20 +27,25 @@ public class ClientStazione {
             InputStream fromServer = sToServer.getInputStream();
 
 
-            while (true) {
-                System.out.println("inserisci STATION/USER");
-                String message = br.readLine();
-                toServer.write(message.getBytes(), 0, message.length());
+            System.out.println("inserisci STATION/USER");
+            String identificatore = br.readLine();
+            toServer.write(identificatore.getBytes(), 0, identificatore.length());
 
-                break;
-            }
 
             while (true) {
                 System.out.println("inserisci id stazione");
                 String message = br.readLine();
                 toServer.write(message.getBytes(), 0, message.length());
 
-                letti = fromServer.read(buffer);
+                try {
+                    letti = fromServer.read(buffer);
+                }
+                catch (IOException e){
+                    throw new ReadException();
+                }
+                if(letti<=0){
+                    throw new ReadException();
+                }
 
                 String msgFromSrv = new String(buffer, 0, letti);
                 if(msgFromSrv.equals(STATION_OK)) break;
@@ -52,17 +57,33 @@ public class ClientStazione {
                 if(message.equals(".")) break;
 
                 toServer.write(message.getBytes(), 0, message.length());
-                letti = fromServer.read(buffer);
+
+                try {
+                    letti = fromServer.read(buffer);
+                }
+                catch (IOException e){
+                    throw new ReadException();
+                }
+                if(letti<=0){
+                    throw new ReadException();
+                }
+
                 String msgFromSrv = new String(buffer, 0, letti);
                 if(msgFromSrv.equals(FORECAST_ERRATA)) System.out.println("Previsione inserita NON corretta!");
                 if(msgFromSrv.equals(FORECAST_CORRETTA)) System.out.println("Previsione inserita corretta");
             }
 
             sToServer.close();
+        } catch (ReadException e) {
+            System.err.println("errore nella read");
+            e.printStackTrace();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static class ReadException extends Throwable {
     }
 }

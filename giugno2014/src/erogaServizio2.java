@@ -93,9 +93,9 @@ public class erogaServizio2 extends Thread {
         } finally {
             try {
                 socket.close();
-                System.err.println("socket chiusa");
+                System.err.println("socket chiusa indirizzo:"+ socket.getInetAddress() + " porta: " +socket.getPort());
             } catch (IOException e) {
-                System.err.println("can not close the socket");
+                System.err.println("can not close the socket indirizzo:"+ socket.getInetAddress() + " porta: " +socket.getPort());
                 e.printStackTrace();
             }
         }
