@@ -24,7 +24,7 @@ public class ClientCalcolatrice {
         try {
             byte[] buffer = new byte[DIM_BUFFER];
             inetAddress = InetAddress.getLocalHost();
-            inetSocketAddress = new InetSocketAddress(inetAddress, 36433);
+            inetSocketAddress = new InetSocketAddress(inetAddress, 37573);
             toServer.connect(inetSocketAddress);
             System.out.println("CLIENT: indirizzo: " + toServer.getLocalAddress() + " porta: " + toServer.getLocalPort());
 

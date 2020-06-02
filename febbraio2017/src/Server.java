@@ -82,15 +82,38 @@ public class Server {
                         if (count > 2) throw new IOException("LA STAZIONE HA INSERITO ID E RITARDO NON VALIDO");
                     }
 
-                } else if (Character.isLowerCase(identita)) {
-
-                    System.out.println("il client è un utente");
-                    buffer = new byte[DIM_BUFFER];
-                    dpin = new DatagramPacket(buffer, DIM_BUFFER);
-
-
                 } else {
-                    throw new IllegalHostException("il client non una stazione o un utente!");
+                    int num=-1;
+                    if(messageFromClient.equals(".")){
+                        System.out.println("ho ricevuto dal client un segnale di end");
+                        continue;
+                    }
+                    try {
+                        num = Integer.parseInt(messageFromClient);
+                    }
+                    catch (NumberFormatException e){
+                        throw new IllegalHostException("il client non una stazione o un utente!");
+                    }
+                    if (num>=1 && num<=9) {
+
+                        System.out.println("il client è un utente");
+                        String aggiornamento=new String("-");
+
+                        for (int i = 0; i < listatreni.length; i++) {
+                            if(num==listatreni[i].getCodiceTreno()){
+                                aggiornamento=listatreni[i].toString();
+                            }
+                        }
+
+                        buffer = aggiornamento.getBytes();
+                        dpin = new DatagramPacket(buffer, aggiornamento.length());
+                        dpin.setSocketAddress(isaClient);
+                        sToClient.send(dpin);
+                        System.out.println("ho inviato al client un aggiornamento");
+
+                    } else {
+                        throw new IllegalHostException("il client non una stazione o un utente!");
+                    }
                 }
             }
         } catch (SocketException e) {

@@ -13,6 +13,15 @@ public class Treno {
         return codiceTreno;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Treno{");
+        sb.append("stazione=").append(idStazioneUltimoAggiornamento);
+        sb.append(", ritardo=").append(ritardo);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public int getRitardo() {
         return ritardo;
     }
