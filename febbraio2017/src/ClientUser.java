@@ -5,6 +5,8 @@ import java.net.*;
 
 public class ClientUser {
     private static final int DIM_BUFFER = 100;
+    private static final String ERROR_USER = "ERROR USER";
+
     public static void main(String[] args) {
         byte[] buffer;
         buffer = new byte[DIM_BUFFER];
@@ -13,7 +15,7 @@ public class ClientUser {
         try {
 
             DatagramSocket sToServer = new DatagramSocket();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(),35212);
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(),52579);
             System.out.println("CLIENT: indirizzo:"+sToServer.getLocalAddress()+ " porta:"+sToServer.getPort());
 
             InputStreamReader tastiera = new InputStreamReader(System.in);
@@ -30,11 +32,15 @@ public class ClientUser {
                 sToServer.send(dp);
                 System.out.println("inviato id treno al server");
 
-                System.out.println("aspetto dati dal server");
+                System.out.println("aspetto dati dal server...");
                 buffer = new byte[DIM_BUFFER];
                 dp = new DatagramPacket(buffer, DIM_BUFFER);
                 sToServer.receive(dp);
                 message = new String(buffer, 0, dp.getLength());
+                if(message.equals(ERROR_USER)){
+                    System.err.println("il server ha inviato un errore");
+                    break;
+                }
                 System.out.println("FROMSERVER:" + message);
             }
         } catch (UnknownHostException e) {

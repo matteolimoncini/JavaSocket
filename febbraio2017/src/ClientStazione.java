@@ -14,7 +14,7 @@ public class ClientStazione {
             String message;
             DatagramSocket sToServer = new DatagramSocket();
             InetAddress inetAddress = InetAddress.getLocalHost();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,35212);
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,52579);
             System.out.println();
             InputStreamReader tastiera = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(tastiera);
