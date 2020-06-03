@@ -3,14 +3,18 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    private static final distrPrezzo distrPrezzo = new distrPrezzo(1,9999);
+    protected final static distrPrezzo distrPrezzo = new distrPrezzo(1,9999);
+    protected static final int DIM_BUFFER=100;
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(0);
+            ServerSocket serverSocket = new ServerSocket(55555);
+            System.out.println("SERVER: indirizzo:"+serverSocket.getInetAddress()+" porta: "+serverSocket.getLocalPort());
             Socket sToClient;
-
+            Thread t;
             while (true){
                 sToClient = serverSocket.accept();
+                t = new ErogaServizio(sToClient);
+                t.run();
             }
 
         }catch (IOException e) {

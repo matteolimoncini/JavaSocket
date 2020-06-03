@@ -21,4 +21,12 @@ public class distrPrezzo {
     public void setPrezzo(int prezzo) {
         this.prezzo = prezzo;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(distributore).append(" ");
+        sb.append(prezzo);
+        return sb.toString();
+    }
 }
