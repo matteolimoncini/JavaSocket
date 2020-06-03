@@ -14,7 +14,8 @@ public class Server {
             while (true){
                 sToClient = serverSocket.accept();
                 t = new ErogaServizio(sToClient);
-                t.run();
+                t.start();
+                System.out.println("thread partito");
             }
 
         }catch (IOException e) {
