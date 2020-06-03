@@ -17,7 +17,7 @@ public class ErogaServizio extends Thread {
     public void run() {
         try {
             System.out.println("CLIENT: indirizzo:"+sToClient.getInetAddress()+" porta:"+sToClient.getPort());
-            byte[] buffer = new byte[Server.DIM_BUFFER];
+            byte[] buffer;
             int letti;
             String messageFromClient;
             InputStream fromCl = this.sToClient.getInputStream();
@@ -26,9 +26,10 @@ public class ErogaServizio extends Thread {
             System.out.println("inviato al client aggiornamento distr prezzo");
 
             while (true) {
+                buffer = new byte[Server.DIM_BUFFER];
                 System.out.println("aspetto i dati dal client...");
                 try {
-                    letti = fromCl.read();
+                    letti = fromCl.read(buffer);
                 } catch (IOException e) {
                     throw new IOException("READ ERROR!");
                 }
@@ -42,6 +43,7 @@ public class ErogaServizio extends Thread {
                     StringTokenizer st = new StringTokenizer(messageFromClient);
                     dist = st.nextToken();
                     prezzo = st.nextToken();
+                    System.out.println("distributore e prezzo ricevuti");
                     if (Integer.parseInt(prezzo) <= Server.distrPrezzo.getPrezzo()) {
                         Server.distrPrezzo.setDistributore(Integer.parseInt(dist));
                         Server.distrPrezzo.setPrezzo(Integer.parseInt(prezzo));
