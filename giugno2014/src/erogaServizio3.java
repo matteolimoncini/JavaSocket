@@ -4,14 +4,13 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class erogaServizio3 extends Thread {
     private static final String FEEDBACK_OK = "FEEDBACK OK";
     private static final String FEEDBACK_ERROR = "FEEDBACK ERRATO";
-    private Socket socket;
+    private final Socket socket;
 
     public erogaServizio3(Socket toClient) {
         this.socket = toClient;
@@ -53,9 +52,6 @@ public class erogaServizio3 extends Thread {
                     msgfromCl = new String(buffer, 0, letti);
 
                     System.out.println("RICEVUTA STRINGA: " + msgfromCl + " di " + letti + " byte da " + socket.getInetAddress() + " ; " + socket.getPort());
-                    String echo = "HO RICEVUTO STRINGA";
-                    //toCl.write(echo.getBytes(), 0, echo.length());
-                    //System.out.println("inviato echo al client");
 
                     Scanner in = new Scanner(msgfromCl);
                     String string;
@@ -94,7 +90,6 @@ public class erogaServizio3 extends Thread {
 
 
                         trefeedback++;
-                        isNotCorrect = false;
                         char idremoto;
                         int oldfeedback;
 
@@ -107,7 +102,7 @@ public class erogaServizio3 extends Thread {
                             }
                         }
                         //sort qui
-                        Collections.sort(Arrays.asList(Server.previsioni));
+                        Arrays.sort(Server.previsioni);
 
                         System.out.println("ho settato il feedback correttamente");
 
@@ -143,6 +138,6 @@ public class erogaServizio3 extends Thread {
 
     }
 
-    private class ReadException extends Throwable {
+    private static class ReadException extends Throwable {
     }
 }

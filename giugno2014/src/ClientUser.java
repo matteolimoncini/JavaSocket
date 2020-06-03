@@ -6,9 +6,6 @@ import java.net.UnknownHostException;
 
 public class ClientUser {
     private static final int DIM_BUFFER = 100;
-    private static final String STATION_OK = "STATION OK";
-    private static final String FORECAST_ERRATA = "FORECAST ERRATA";
-    private static final String FORECAST_CORRETTA = "FORECAST OK";
     private static final String FEEDBACK_OK = "FEEDBACK OK";
     private static final String FEEDBACK_ERROR = "FEEDBACK ERRATO";
 
