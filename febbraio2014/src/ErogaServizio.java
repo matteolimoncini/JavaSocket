@@ -38,7 +38,7 @@ public class ErogaServizio extends Thread {
                 messageFromClient = new String(buffer, 0, letti);
                 System.out.println("RICEVUTO DAL CLIENT: " + messageFromClient);
                 String prezzo, dist;
-                if (messageFromClient.matches("[0-9]+ [0-9]*")) {    //TODO controllare regex
+                if (messageFromClient.matches("[1-7]\\s[0-9]{1,4}")) {
                     StringTokenizer st = new StringTokenizer(messageFromClient);
                     dist = st.nextToken();
                     prezzo = st.nextToken();
