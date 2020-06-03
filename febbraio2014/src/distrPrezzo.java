@@ -1,13 +1,10 @@
 public class distrPrezzo {
     private int distributore;
     private int prezzo;
-    public distrPrezzo(int distributore, int prezzo) {
-        this.distributore=distributore;
-        this.prezzo=prezzo;
-    }
 
-    public int getDistributore() {
-        return distributore;
+    public distrPrezzo(int distributore, int prezzo) {
+        this.distributore = distributore;
+        this.prezzo = prezzo;
     }
 
     public void setDistributore(int distributore) {
@@ -24,9 +21,8 @@ public class distrPrezzo {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(distributore).append(" ");
-        sb.append(prezzo);
-        return sb.toString();
+        String sb = distributore + " " +
+                prezzo;
+        return sb;
     }
 }

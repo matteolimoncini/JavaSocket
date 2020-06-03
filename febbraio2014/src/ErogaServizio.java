@@ -16,7 +16,7 @@ public class ErogaServizio extends Thread {
     @Override
     public void run() {
         try {
-            System.out.println("CLIENT: indirizzo:"+sToClient.getInetAddress()+" porta:"+sToClient.getPort());
+            System.out.println("CLIENT: indirizzo:" + sToClient.getInetAddress() + " porta:" + sToClient.getPort());
             byte[] buffer;
             int letti;
             String messageFromClient;
@@ -58,7 +58,7 @@ public class ErogaServizio extends Thread {
 
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             try {
                 sToClient.close();
                 System.out.println("socket chiusa");
@@ -67,7 +67,6 @@ public class ErogaServizio extends Thread {
                 e.printStackTrace();
             }
         }
-
 
     }
 }
