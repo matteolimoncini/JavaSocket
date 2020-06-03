@@ -13,8 +13,9 @@ public class ClientStazione {
     public static void main(String[] args) {
         Socket sToServer;
         sToServer = new Socket();
-        byte[] buffer = new byte[DIM_BUFFER];
+        byte[] buffer;
         try {
+            buffer = new byte[DIM_BUFFER];
             int letti;
             InetAddress inetAddress = InetAddress.getLocalHost();
             InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,22222);
@@ -33,6 +34,7 @@ public class ClientStazione {
 
 
             while (true) {
+                buffer = new byte[DIM_BUFFER];
                 System.out.println("inserisci id stazione");
                 String message = br.readLine();
                 toServer.write(message.getBytes(), 0, message.length());
@@ -52,6 +54,7 @@ public class ClientStazione {
             }
 
             while (true) {
+                buffer = new byte[DIM_BUFFER];
                 System.out.println("inserisci previsione del tempo");
                 String message = br.readLine();
                 if(message.equals(".")) break;

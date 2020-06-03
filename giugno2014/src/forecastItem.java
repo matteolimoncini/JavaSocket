@@ -1,4 +1,4 @@
-public class forecastItem {
+public class forecastItem implements Comparable<forecastItem> {
     private int feedback=0;
     private char tempo='-';
     private char id='-';
@@ -41,4 +41,8 @@ public class forecastItem {
         return sb.toString();
     }
 
+    @Override
+    public int compareTo(forecastItem o) {
+            return Integer.compare(o.getFeedback(),this.getFeedback());
+    }
 }

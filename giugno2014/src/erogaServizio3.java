@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -105,12 +106,9 @@ public class erogaServizio3 extends Thread {
                                 break;
                             }
                         }
-/*
-                        Arrays.sort(Server.previsioni);
-                        for (int i = 0; i < Server.previsioni.length; i++) {
-                            Server.previsioni[i].getId();
-                        }
-*/
+                        //sort qui
+                        Collections.sort(Arrays.asList(Server.previsioni));
+
                         System.out.println("ho settato il feedback correttamente");
 
                     } else {
