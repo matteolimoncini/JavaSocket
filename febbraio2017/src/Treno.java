@@ -5,8 +5,8 @@ public class Treno {
 
     public Treno(int codiceTreno) {
         this.codiceTreno = codiceTreno;
-        ritardo=0;
-        idStazioneUltimoAggiornamento ='-';
+        ritardo = 0;
+        idStazioneUltimoAggiornamento = '-';
     }
 
     public int getCodiceTreno() {
@@ -15,23 +15,13 @@ public class Treno {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Treno{");
-        sb.append("stazione=").append(idStazioneUltimoAggiornamento);
-        sb.append(", ritardo=").append(ritardo);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    public int getRitardo() {
-        return ritardo;
+        return "Treno{" + "stazione=" + idStazioneUltimoAggiornamento +
+                ", ritardo=" + ritardo +
+                '}';
     }
 
     public void setRitardo(int ritardo) {
         this.ritardo = ritardo;
-    }
-
-    public char getIdStazioneUltimoAggiornamento() {
-        return idStazioneUltimoAggiornamento;
     }
 
     public void setIdStazioneUltimoAggiornamento(char idStazioneUltimoAggiornamento) {

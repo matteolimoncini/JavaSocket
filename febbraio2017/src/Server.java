@@ -1,5 +1,8 @@
 import java.io.IOException;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketAddress;
+import java.net.SocketException;
 import java.util.StringTokenizer;
 
 public class Server {
@@ -24,7 +27,6 @@ public class Server {
             System.out.println("SERVER: indirizzo: " + sToClient.getLocalAddress() + " porta: " + sToClient.getLocalPort());
             while (true) {
                 try {
-
 
                     buffer = new byte[DIM_BUFFER];
                     dpin = new DatagramPacket(buffer, DIM_BUFFER);
@@ -88,7 +90,7 @@ public class Server {
                         }
 
                     } else {
-                        int num = -1;
+                        int num;
                         if (messageFromClient.equals(".")) {
                             System.out.println("ho ricevuto dal client un segnale di end");
                             continue;
@@ -101,7 +103,7 @@ public class Server {
                         if (num >= 1 && num <= 9) {
 
                             System.out.println("il client è un utente");
-                            String aggiornamento = new String("-");
+                            String aggiornamento = "-";
 
                             for (int i = 0; i < listatreni.length; i++) {
                                 if (num == listatreni[i].getCodiceTreno()) {
@@ -138,8 +140,8 @@ public class Server {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            assert sToClient!=null;
+        } finally {
+            assert sToClient != null;
             sToClient.close();
             System.err.println("chiusura socket");
         }

@@ -9,21 +9,21 @@ public class ClientUser {
 
     public static void main(String[] args) {
         byte[] buffer;
-        buffer = new byte[DIM_BUFFER];
-        DatagramPacket dp = new DatagramPacket(buffer, DIM_BUFFER);
+        DatagramPacket dp;
         String message = "";
         try {
 
             DatagramSocket sToServer = new DatagramSocket();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(),52579);
-            System.out.println("CLIENT: indirizzo:"+sToServer.getLocalAddress()+ " porta:"+sToServer.getPort());
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost(), 50526);
+            System.out.println("CLIENT: indirizzo:" + sToServer.getLocalAddress() + " porta:" + sToServer.getPort());
 
             InputStreamReader tastiera = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(tastiera);
             while (!message.equals(".")) {
+                buffer = new byte[DIM_BUFFER];
                 System.out.println("inserisci id del treno che ti interessa");
                 message = br.readLine();
-                if(message.equals(".")){
+                if (message.equals(".")) {
                     break;
                 }
                 buffer = message.getBytes();
@@ -37,7 +37,7 @@ public class ClientUser {
                 dp = new DatagramPacket(buffer, DIM_BUFFER);
                 sToServer.receive(dp);
                 message = new String(buffer, 0, dp.getLength());
-                if(message.equals(ERROR_USER)){
+                if (message.equals(ERROR_USER)) {
                     System.err.println("il server ha inviato un errore");
                     break;
                 }

@@ -5,46 +5,45 @@ import java.net.*;
 
 public class ClientStazione {
     private static final int DIM_BUFFER = 100;
+
     public static void main(String[] args) {
         byte[] buffer;
         buffer = new byte[DIM_BUFFER];
-        DatagramPacket dpout = new DatagramPacket(buffer,DIM_BUFFER);
         DatagramPacket dpin;
         try {
             String message;
             DatagramSocket sToServer = new DatagramSocket();
             InetAddress inetAddress = InetAddress.getLocalHost();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress,52579);
-            System.out.println();
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress, 50526);
             InputStreamReader tastiera = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(tastiera);
 
             System.out.println("inserisci identificatore");
-            message=br.readLine();
+            message = br.readLine();
             buffer = message.getBytes();
-            dpin = new DatagramPacket(buffer,message.length());
+            dpin = new DatagramPacket(buffer, message.length());
             dpin.setSocketAddress(inetSocketAddress);
             sToServer.send(dpin);
 
-            while (!message.equals(".")){
+            while (!message.equals(".")) {
                 buffer = new byte[DIM_BUFFER];
                 System.out.println("inserisci id e ritardo");
-                message=br.readLine();
+                message = br.readLine();
 
                 buffer = message.getBytes();
 
-                dpin= new DatagramPacket(buffer,message.length());
+                dpin = new DatagramPacket(buffer, message.length());
                 dpin.setSocketAddress(inetSocketAddress);
                 sToServer.send(dpin);
-                if(message.equals(".")){
+                if (message.equals(".")) {
                     break;
                 }
 
                 buffer = new byte[DIM_BUFFER];
-                dpin= new DatagramPacket(buffer,DIM_BUFFER);
+                dpin = new DatagramPacket(buffer, DIM_BUFFER);
                 sToServer.receive(dpin);
-                message = new String(buffer,0,dpin.getLength());
-                System.out.println("ricevuto dal server: "+message);
+                message = new String(buffer, 0, dpin.getLength());
+                System.out.println("ricevuto dal server: " + message);
             }
 
 
