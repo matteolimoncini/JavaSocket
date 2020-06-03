@@ -5,14 +5,14 @@ import java.net.Socket;
 
 public class Server {
     protected static final int DIM_BUFFER = 100;
+    protected static final Character[] forecastAmmessi = {'s', 'v', 'c', 'p', 'n', '-'};
+    protected static final String[] ID_AMMESSI = {"A", "B", "C"};
     private static final String STATION = "STATION";
     private static final String USER = "USER";
     protected static forecastItem[] previsioni = new forecastItem[3];
-    protected static final Character[] forecastAmmessi = {'s','v','c','p','n','-'};
-    protected static final String[] ID_AMMESSI = {"A","B","C"};
 
     public static void main(String[] args) {
-        char c='A';
+        char c = 'A';
         for (int i = 0; i < previsioni.length; i++) {
             previsioni[i] = new forecastItem(c++);
         }

@@ -6,11 +6,10 @@ import java.util.Arrays;
 
 public class erogaServizio2 extends Thread {
     private static final int DIM_BUFFER = 100;
-    private static final String STATION = "STATION";
     private static final String FORECAST_ERRATA = "FORECAST ERRATA";
     private static final String STATION_OK = "STATION OK";
     private static final String FORECAST_CORRETTA = "FORECAST OK";
-    private Socket socket;
+    private final Socket socket;
 
     public erogaServizio2(Socket toClient) {
         this.socket = toClient;
@@ -93,9 +92,9 @@ public class erogaServizio2 extends Thread {
         } finally {
             try {
                 socket.close();
-                System.err.println("socket chiusa indirizzo:"+ socket.getInetAddress() + " porta: " +socket.getPort());
+                System.err.println("socket chiusa indirizzo:" + socket.getInetAddress() + " porta: " + socket.getPort());
             } catch (IOException e) {
-                System.err.println("can not close the socket indirizzo:"+ socket.getInetAddress() + " porta: " +socket.getPort());
+                System.err.println("can not close the socket indirizzo:" + socket.getInetAddress() + " porta: " + socket.getPort());
                 e.printStackTrace();
             }
         }

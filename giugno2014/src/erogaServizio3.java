@@ -12,8 +12,9 @@ public class erogaServizio3 extends Thread {
     private static final String FEEDBACK_OK = "FEEDBACK OK";
     private static final String FEEDBACK_ERROR = "FEEDBACK ERRATO";
     private Socket socket;
+
     public erogaServizio3(Socket toClient) {
-      this.socket=toClient;
+        this.socket = toClient;
     }
 
     @Override
@@ -32,23 +33,23 @@ public class erogaServizio3 extends Thread {
             for (int i = 0; i < previsioni.length; i++) {
                 sb.append(previsioni[i].toString()).append("\n");
             }
-            String previsione =sb.toString();
-            toCl.write(previsione.getBytes(),0,previsione.length());
+            String previsione = sb.toString();
+            toCl.write(previsione.getBytes(), 0, previsione.length());
             System.out.println("ho inviato al client le previsioni");
 
-            int trefeedback=0;
-            boolean isNotCorrect=false;
-            String insert="inserisci id feedback";
-            while (trefeedback<3){
-                isNotCorrect=false;
+            int trefeedback = 0;
+            boolean isNotCorrect = false;
+            String insert = "inserisci id feedback";
+            while (trefeedback < 3) {
+                isNotCorrect = false;
                 //toCl.write(insert.getBytes(),0,insert.length());
                 //System.out.println("INVIATO AL CLIENT inserisci id feedback");
                 try {
-                    letti=fromCl.read(buffer);
+                    letti = fromCl.read(buffer);
                 } catch (IOException e) {
                     throw new ReadException();
                 }
-                if(letti>0) {
+                if (letti > 0) {
                     msgfromCl = new String(buffer, 0, letti);
 
                     System.out.println("RICEVUTA STRINGA: " + msgfromCl + " di " + letti + " byte da " + socket.getInetAddress() + " ; " + socket.getPort());
@@ -63,10 +64,9 @@ public class erogaServizio3 extends Thread {
                     for (int i = 0; i < 2; i++) {
                         try {
                             string = in.next();
-                        }
-                        catch (NoSuchElementException e){
+                        } catch (NoSuchElementException e) {
                             System.err.println("scanner error!");
-                            isNotCorrect=true;
+                            isNotCorrect = true;
                             break;
                         }
                         if (i == 0) {
@@ -117,15 +117,14 @@ public class erogaServizio3 extends Thread {
                         System.out.println("ho inviato al client feedback error");
                     }
 
-                }
-                else{
+                } else {
                     throw new ReadException();
                 }
 
             }
 
 
-        } catch (ReadException e){
+        } catch (ReadException e) {
             System.err.println("errore nella read");
             e.printStackTrace();
         } catch (UnknownHostException e) {
@@ -135,9 +134,9 @@ public class erogaServizio3 extends Thread {
         } finally {
             try {
                 socket.close();
-                System.err.println("socket chiusa indirizzo:"+ socket.getInetAddress() + " porta: " +socket.getPort());
+                System.err.println("socket chiusa indirizzo:" + socket.getInetAddress() + " porta: " + socket.getPort());
             } catch (IOException e) {
-                System.err.println("can not close the socket indirizzo:"+ socket.getInetAddress() + " porta: " +socket.getPort());
+                System.err.println("can not close the socket indirizzo:" + socket.getInetAddress() + " porta: " + socket.getPort());
                 e.printStackTrace();
             }
         }
