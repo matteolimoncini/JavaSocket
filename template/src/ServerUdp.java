@@ -10,7 +10,7 @@ public class ServerUdp {
             int dimbuffer = 100;
             byte[] buffer;
             sToClient = new DatagramSocket(0);
-            System.out.println("SERVER: indirizzo:" + sToClient.getLocalAddress() + "porta: " + sToClient.getPort());
+            System.out.println("SERVER: indirizzo:" + sToClient.getLocalAddress() + "porta: " + sToClient.getLocalPort());
 
             while (true) {
                 buffer = new byte[dimbuffer];
