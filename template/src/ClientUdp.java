@@ -11,8 +11,6 @@ public class ClientUdp {
             DatagramPacket dp = new DatagramPacket(messageToServer.getBytes(), 0, messageToServer.length());
             dp.setSocketAddress(isa);
             socket.send(dp);
-            socket.send(dp);
-
 
         } catch (SocketException e) {
             e.printStackTrace();
