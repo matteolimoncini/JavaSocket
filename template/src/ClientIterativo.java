@@ -20,7 +20,7 @@ public class ClientIterativo {
             BufferedReader br = new BufferedReader(tastiera);
             String input = br.readLine();
 
-            toServer.write(input.getBytes());
+            toServer.write(input.getBytes(), 0, input.length());
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
