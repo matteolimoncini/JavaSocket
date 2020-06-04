@@ -30,6 +30,7 @@ public class Server {
                 System.out.println("CLIENT: indirizzo:" + toClient.getInetAddress() + " porta: " + toClient.getPort());
 
                 inputStream = toClient.getInputStream();
+                inputStream = toClient.getInputStream();
                 int letti = inputStream.read(buffer);
                 String wichhost;
                 try {

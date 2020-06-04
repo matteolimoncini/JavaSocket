@@ -14,7 +14,7 @@ public class ClientStazione {
             String message;
             DatagramSocket sToServer = new DatagramSocket();
             InetAddress inetAddress = InetAddress.getLocalHost();
-            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress, 50526);
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(inetAddress, 33030);
             InputStreamReader tastiera = new InputStreamReader(System.in);
             BufferedReader br = new BufferedReader(tastiera);
 
@@ -45,7 +45,7 @@ public class ClientStazione {
                 message = new String(buffer, 0, dpin.getLength());
                 System.out.println("ricevuto dal server: " + message);
             }
-
+            sToServer.close();
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
